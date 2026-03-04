@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "title": "Build awareness and educate customers to be concerned of their OTP",
+      "category": "Awareness",
+      "image": "https://your-cdn.com/cases/fig-studio.jpg",
+      "description": "",
+      "client": "fig studio",
+      "link": "/case-studies/fig-studio"
+    },
+    {
+      "id": "2",
+      "title": "Rebranding campaign to reach new younger demographics across platforms",
+      "category": "Branding",
+      "image": "https://your-cdn.com/cases/late-studios.jpg",
+      "description": "",
+      "client": "Late Studios",
+      "link": "/case-studies/late-studios"
+    }
+  ]
+}

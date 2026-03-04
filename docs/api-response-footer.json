@@ -1,0 +1,21 @@
+{
+  "data": {
+    "links": [
+      { "label": "About", "href": "#about" },
+      { "label": "Services", "href": "#services" },
+      { "label": "Case Studies", "href": "#case-studies" },
+      { "label": "Clients", "href": "#clients" },
+      { "label": "Careers", "href": "#career" },
+      { "label": "Contact Us", "href": "#contact" },
+      { "label": "Privacy Policy", "href": "/privacy" },
+      { "label": "Terms & Conditions", "href": "/terms" }
+    ],
+    "socialLinks": [
+      { "label": "FACEBOOK", "href": "https://facebook.com/brand" },
+      { "label": "LINKEDIN", "href": "https://linkedin.com/company/brand" },
+      { "label": "INSTAGRAM", "href": "https://instagram.com/brand" }
+    ],
+    "email": "brand@gmail.com",
+    "phone": "08123456789"
+  }
+}

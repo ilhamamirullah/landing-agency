@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "quote": "MXA's data-driven approach and continuous optimization helped us reduce our cost per acquisition while scaling our campaigns effectively.",
+      "name": "Giana Saris",
+      "role": "Founder & CEO, Company ABC",
+      "image": "https://your-cdn.com/testimonials/giana.jpg"
+    },
+    {
+      "id": "2",
+      "quote": "MXA is more than just an agency — they are a strategic partner.",
+      "name": "Andow Smith",
+      "role": "Founder & CEO, Company ABC",
+      "image": "https://your-cdn.com/testimonials/andow.jpg"
+    }
+  ]
+}

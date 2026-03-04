@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "number": "01",
+      "title": "AWARENESS",
+      "description": "Building a brand always starts with awareness and we can help you deliver your message to the right audiences.",
+      "image": "https://your-cdn.com/services/awareness.jpg"
+    },
+    {
+      "id": "2",
+      "number": "02",
+      "title": "PERFORMANCE",
+      "description": "Discuss with us what kind of action you need from your audience...",
+      "image": "https://your-cdn.com/services/performance.jpg"
+    }
+  ]
+}

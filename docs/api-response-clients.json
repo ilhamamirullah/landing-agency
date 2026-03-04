@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "Google",
+      "logo": "https://your-cdn.com/clients/google.png",
+      "row": 1
+    },
+    {
+      "id": "2",
+      "name": "Microsoft",
+      "logo": "https://your-cdn.com/clients/microsoft.png",
+      "row": 1
+    },
+    {
+      "id": "3",
+      "name": "Stripe",
+      "logo": "https://your-cdn.com/clients/stripe.png",
+      "row": 2
+    }
+  ]
+}

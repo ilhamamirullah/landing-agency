@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+/* ===== Custom Theme (Tailwind v4) ===== */
+@theme {
+  --color-brand-red: #FF0D34;
+  --color-brand-black: #000000;
+  --color-brand-light: #F7F7F7;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* ===== Mobile & Tablet: Normal scroll ===== */
+.snap-container {
+  scroll-behavior: smooth;
+}
+
+.snap-section {
+  height: auto;
+  min-height: auto;
+  display: block;
+  border: none;
+  outline: none;
+}
+
+/* ===== Desktop Only (1024px+): Snap scroll ===== */
+@media (min-width: 1024px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .snap-container {
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .snap-section {
+    scroll-snap-align: start;
+    height: 100vh;
+    overflow-y: auto;
+    position: relative;
+    scrollbar-width: none;
+  }
+
+  .snap-section::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+}
+
+/* ===== Hero Animations ===== */
+
+@keyframes fadeInColor {
+  0% {
+    filter: grayscale(100%);
+    opacity: 0;
+  }
+  50% {
+    filter: grayscale(100%);
+    opacity: 1;
+  }
+  100% {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(-80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-color {
+  animation: fadeInColor 1.5s ease-out forwards;
+}
+
+.animate-slide-from-top {
+  animation: slideFromTop 0.8s ease-out 1.2s forwards;
+  opacity: 0;
+}
+
+.animate-slide-from-left {
+  animation: slideFromLeft 0.8s ease-out 1.6s forwards;
+  opacity: 0;
+}
+
+/* ===== About Section Animations ===== */
+
+.animate-slide-from-bottom {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-slide-from-bottom.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-delay-100 { transition-delay: 0.1s; }
+.animate-delay-200 { transition-delay: 0.2s; }
+.animate-delay-300 { transition-delay: 0.3s; }
+.animate-delay-400 { transition-delay: 0.4s; }
+.animate-delay-500 { transition-delay: 0.5s; }
+.animate-delay-600 { transition-delay: 0.6s; }
+
+/* ===== Decorative Glow Dot ===== */
+
+.glow-dot {
+  background: radial-gradient(circle, rgba(255, 13, 52, 0.4) 0%, rgba(255, 13, 52, 0.1) 40%, transparent 70%);
+}
+
+/* ===== Client Marquee ===== */
+
+/* Shared track styles */
+.marquee-track-rtl,
+.marquee-track-ltr {
+  display: flex;
+  width: max-content;
+}
+
+/* Each content block sits side by side */
+.marquee-content {
+  display: flex;
+  flex-shrink: 0;
+}
+
+/* Row 1: slides right-to-left */
+@keyframes scrollRtl {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track-rtl {
+  animation: scrollRtl 30s ease-in-out infinite;
+}
+
+/* Row 2: slides left-to-right */
+@keyframes scrollLtr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.marquee-track-ltr {
+  animation: scrollLtr 30s ease-in-out infinite;
+}
+
+/* Pause marquee on hover */
+.marquee-track-rtl:hover,
+.marquee-track-ltr:hover {
+  animation-play-state: paused;
+}
+
+/* ===== Case Studies Right Panel Scroll ===== */
+
+.case-studies-scroll {
+  scrollbar-width: none;
+}
+
+.case-studies-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== Testimonials: Slide from Left (medium → slow) ===== */
+
+.testimonial-reveal {
+  opacity: 0;
+  transform: translateX(-120px);
+}
+
+.testimonial-reveal.in-view {
+  animation: testimonialSlideIn 2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.testimonial-reveal-delay.in-view {
+  animation-delay: 0.4s;
+}
+
+@keyframes testimonialSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-120px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== Testimonials Horizontal Scroll ===== */
+
+.testimonial-scroll {
+  scrollbar-width: none;
+}
+
+.testimonial-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== CTA Lead: Slide from sides (meet in middle) ===== */
+
+.cta-slide-left {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.cta-slide-left.in-view {
+  animation: ctaFromLeft 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.cta-slide-right {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.cta-slide-right.in-view {
+  animation: ctaFromRight 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes ctaFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ctaFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== Footer: Slide up reveal with background ===== */
+
+.footer-reveal {
+  transform: translateY(100%);
+}
+
+.footer-reveal.in-view {
+  animation: footerSlideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes footerSlideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
