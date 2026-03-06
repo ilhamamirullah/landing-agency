@@ -5,6 +5,7 @@
   --color-brand-red: #FF0D34;
   --color-brand-black: #000000;
   --color-brand-light: #F7F7F7;
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
 }
 
 @layer base {
