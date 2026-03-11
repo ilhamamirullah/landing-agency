@@ -2,76 +2,14 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/Header";
 import FooterSection from "@/components/FooterSection";
 import CTALeadSection from "@/components/CTALeadSection";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { servicesData } from "@/lib/servicesData";
 
-const services = [
-  {
-    id: "1",
-    number: "01",
-    title: "Digital Media Campaign Strategy",
-    description:
-      "We crawl and analyze every data aspect to help you determine the right strategy by leveraging various channels and platforms to achieve marketing objective goals.",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "2",
-    number: "02",
-    title: "Digital Media Campaign Planning",
-    description:
-      "With data analyst and digital media specialist, we create precision and effective media plan to help our clients start from winning the competition, increase engagement and recapture the consumers.",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "3",
-    number: "03",
-    title: "Digital Media Campaign Buying",
-    description:
-      "We maintain our good relationship with every stakeholders in today's digital world. As a result, we offer best deal and solution, manage the relation and situation and send it in an appetite report format only for you.",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "4",
-    number: "04",
-    title: "Premium Publisher",
-    description:
-      "Through our wide-range publisher networks, we offer you many opportunities to start spreading the conversation, do more action or even become more innovating in the digital advertising world.",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "5",
-    number: "05",
-    title: "Programmatic",
-    description:
-      "We offer programmatic advertising and also help you to optimize your campaign. Start from using real-time bidding, deliver the right ads quality to the right audience, until help you to manage your targeting methods using audience data.",
-    image:
-      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "6",
-    number: "06",
-    title: "Social Media",
-    description:
-      "We distribute your great social media content to the right audience, achieving more impact and efficiently achieve your brand goals.",
-    image:
-      "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "7",
-    number: "07",
-    title: "KOL",
-    description:
-      "We help you connect and select Influencers that best represent your brand to answer your campaign objective.",
-    image:
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=800&auto=format&fit=crop",
-  },
-];
+const services = servicesData;
 
 function ServiceCard({ service, delay = 0 }: { service: typeof services[0]; delay?: number }) {
   const { ref, isInView } = useScrollReveal(0.1);
@@ -106,15 +44,15 @@ function ServiceCard({ service, delay = 0 }: { service: typeof services[0]; dela
           {service.description}
         </p>
         <div>
-          <a
-            href="#contact"
+          <Link
+            href={`/services/${service.slug}`}
             className="inline-flex items-center gap-2 bg-brand-red hover:bg-red-600 text-white text-sm font-semibold px-5 py-2.5 rounded-md transition-colors duration-300"
           >
             Try It Now
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -303,6 +303,8 @@ export default function AboutPage() {
                 label={s.label}
                 isVisible={statsInView}
                 lightBg
+                labelColor="#1F1F1D"
+                countingColor="#1F1F1D"
               />
             );
           })}
@@ -343,7 +345,7 @@ export default function AboutPage() {
           {/* Row 2: image left | Vision + Mission right */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
             {/* Image */}
-            <div className="relative w-full h-64 sm:h-80 lg:h-full min-h-[320px] overflow-hidden rounded-xl">
+            <div className="relative w-full h-64 sm:h-80 lg:h-[520px] overflow-hidden rounded-xl">
               <Image
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop"
                 alt="Team in meeting"
@@ -491,7 +493,7 @@ export default function AboutPage() {
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover object-top hover:scale-105 transition-transform duration-500"
+                    className="object-cover object-top"
                   />
                 </div>
                 <p className="font-bold text-white text-sm">{member.name}</p>

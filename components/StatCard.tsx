@@ -9,6 +9,8 @@ interface StatCardProps {
   label: string;
   isVisible?: boolean;
   lightBg?: boolean;
+  labelColor?: string;
+  countingColor?: string;
 }
 
 export default function StatCard({
@@ -18,6 +20,8 @@ export default function StatCard({
   label,
   isVisible = false,
   lightBg = false,
+  labelColor,
+  countingColor,
 }: StatCardProps) {
   const [displayValue, setDisplayValue] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -60,14 +64,15 @@ export default function StatCard({
     <div className="text-center py-4">
       <p
         className={`text-3xl md:text-4xl xl:text-5xl font-bold transition-colors duration-500 tabular-nums ${
-          isComplete ? "text-brand-red" : lightBg ? "text-gray-200" : "text-white"
+          isComplete ? "text-brand-red" : !countingColor ? (lightBg ? "text-gray-200" : "text-white") : ""
         }`}
+        style={!isComplete && countingColor ? { color: countingColor } : undefined}
       >
         {prefix}
         {displayValue.toLocaleString()}
         {suffix}
       </p>
-      <p className="text-gray-400 text-sm mt-2">{label}</p>
+      <p className="text-sm mt-2 text-gray-400" style={labelColor ? { color: labelColor } : undefined}>{label}</p>
     </div>
   );
 }

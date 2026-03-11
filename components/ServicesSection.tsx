@@ -1,8 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Service } from "@/types";
+import { servicesData } from "@/lib/servicesData";
+
+function getSlug(id: string) {
+  return servicesData.find((s) => s.id === id)?.slug ?? "#";
+}
 
 // ✅ Static fallback — used when API is unavailable
 const defaultServices: Service[] = [
@@ -83,11 +89,12 @@ export default function ServicesSection({ data }: Props) {
           }`}
         >
           {services.map((service, index) => (
-            <div
+            <Link
               key={service.id}
+              href={`/services/${getSlug(service.id)}`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className={`group relative border-t border-gray-300 last:border-b transition-all duration-500 cursor-pointer overflow-hidden ${
+              className={`group relative border-t border-gray-300 last:border-b transition-all duration-500 cursor-pointer overflow-hidden block ${
                 hoveredIndex === index ? "bg-brand-red" : "bg-transparent"
               }`}
             >
@@ -281,7 +288,7 @@ export default function ServicesSection({ data }: Props) {
                   />
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
