@@ -8,6 +8,7 @@ interface StatCardProps {
   prefix?: string;
   label: string;
   isVisible?: boolean;
+  lightBg?: boolean;
 }
 
 export default function StatCard({
@@ -16,6 +17,7 @@ export default function StatCard({
   prefix = "",
   label,
   isVisible = false,
+  lightBg = false,
 }: StatCardProps) {
   const [displayValue, setDisplayValue] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -58,7 +60,7 @@ export default function StatCard({
     <div className="text-center py-4">
       <p
         className={`text-3xl md:text-4xl xl:text-5xl font-bold transition-colors duration-500 tabular-nums ${
-          isComplete ? "text-brand-red" : "text-white"
+          isComplete ? "text-brand-red" : lightBg ? "text-gray-200" : "text-white"
         }`}
       >
         {prefix}

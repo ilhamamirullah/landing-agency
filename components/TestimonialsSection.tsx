@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Testimonial } from "@/types";
 
@@ -43,6 +44,48 @@ const defaultTestimonials: Testimonial[] = [
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
   },
 ];
+
+function ArrowButton({
+  direction,
+  disabled,
+  onClick,
+}: {
+  direction: "left" | "right";
+  disabled: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 ${
+        disabled
+          ? "bg-gray-100 text-gray-300 cursor-not-allowed"
+          : "bg-gray-100 text-brand-red hover:bg-brand-red hover:text-white"
+      }`}
+      aria-label={direction === "left" ? "Previous" : "Next"}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={2.5}
+        stroke="currentColor"
+        className="w-4 h-4"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d={
+            direction === "left"
+              ? "M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+              : "M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+          }
+        />
+      </svg>
+    </button>
+  );
+}
 
 // ✅ Props interface
 interface Props {
@@ -105,44 +148,6 @@ export default function TestimonialsSection({ data }: Props) {
     requestAnimationFrame(animateScroll);
   };
 
-  const ArrowButton = ({
-    direction,
-    disabled,
-  }: {
-    direction: "left" | "right";
-    disabled: boolean;
-  }) => (
-    <button
-      onClick={() => scroll(direction)}
-      disabled={disabled}
-      className={`w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 ${
-        disabled
-          ? "bg-gray-100 text-gray-300 cursor-not-allowed"
-          : "bg-gray-100 text-brand-red hover:bg-gray-200"
-      }`}
-      aria-label={direction === "left" ? "Previous" : "Next"}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={2.5}
-        stroke="currentColor"
-        className="w-4 h-4"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d={
-            direction === "left"
-              ? "M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-              : "M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-          }
-        />
-      </svg>
-    </button>
-  );
-
   return (
     <div className="relative bg-white pt-24 md:pt-28 pb-4 md:pb-8 overflow-hidden flex flex-col">
       <div className="px-4 sm:px-6 lg:px-8 xl:px-12">
@@ -159,8 +164,8 @@ export default function TestimonialsSection({ data }: Props) {
 
           {/* Desktop Arrows */}
           <div className="hidden sm:flex items-center gap-3">
-            <ArrowButton direction="left" disabled={!canScrollLeft} />
-            <ArrowButton direction="right" disabled={!canScrollRight} />
+            <ArrowButton direction="left" disabled={!canScrollLeft} onClick={() => scroll("left")} />
+            <ArrowButton direction="right" disabled={!canScrollRight} onClick={() => scroll("right")} />
           </div>
         </div>
       </div>
@@ -179,7 +184,7 @@ export default function TestimonialsSection({ data }: Props) {
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="testimonial-card flex-shrink-0 w-[85vw] sm:w-[540px] lg:w-[600px] bg-gray-50 rounded-xl overflow-hidden h-auto sm:h-[340px] lg:h-[390px]"
+              className="testimonial-card flex-shrink-0 w-[88vw] sm:w-[600px] lg:w-[660px] bg-gray-50 rounded-xl overflow-hidden h-auto sm:h-[340px] lg:h-[390px]"
             >
               {/* Desktop: side by side */}
               <div className="hidden sm:flex h-full">
@@ -196,11 +201,12 @@ export default function TestimonialsSection({ data }: Props) {
                     </p>
                   </div>
                 </div>
-                <div className="w-52 lg:w-60 flex-shrink-0">
-                  <img
+                <div className="w-52 lg:w-60 flex-shrink-0 relative">
+                  <Image
                     src={t.image}
                     alt={t.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -214,11 +220,12 @@ export default function TestimonialsSection({ data }: Props) {
                   <p className="font-bold text-gray-900 text-sm">{t.name}</p>
                   <p className="text-gray-500 text-xs mt-0.5">{t.role}</p>
                 </div>
-                <div className="w-full aspect-[4/3]">
-                  <img
+                <div className="w-full aspect-[4/3] relative">
+                  <Image
                     src={t.image}
                     alt={t.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                     style={{ objectPosition: "center 10%" }}
                   />
                 </div>
@@ -229,8 +236,8 @@ export default function TestimonialsSection({ data }: Props) {
 
         {/* Mobile Arrows */}
         <div className="sm:hidden flex justify-center items-center gap-4 mt-4 mb-2">
-          <ArrowButton direction="left" disabled={!canScrollLeft} />
-          <ArrowButton direction="right" disabled={!canScrollRight} />
+          <ArrowButton direction="left" disabled={!canScrollLeft} onClick={() => scroll("left")} />
+          <ArrowButton direction="right" disabled={!canScrollRight} onClick={() => scroll("right")} />
         </div>
       </div>
     </div>

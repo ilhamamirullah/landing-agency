@@ -34,14 +34,11 @@ export default async function Home() {
           <AboutSection stats={stats} />
         </section>
 
-        {/* Section 3: Services */}
         <section id="services" className="snap-section bg-white">
           <ServicesSection data={services} />
-        </section>
-
-        {/* Section 4: Clients */}
-        <section id="clients" className="snap-section bg-white">
-          <ClientsSection data={clients} />
+          <section id="clients" className="bg-white">
+            <ClientsSection data={clients} />
+          </section>
         </section>
 
         {/* Section 5: Case Studies */}

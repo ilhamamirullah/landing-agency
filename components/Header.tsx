@@ -1,16 +1,17 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Case studies", href: "#case-studies" },
-  { label: "Client & Partners", href: "#clients" },
-  { label: "Career", href: "#career" },
+  { label: "About", href: "#about", scroll: true },
+  { label: "Services", href: "/services", scroll: false },
+  { label: "Case studies", href: "#case-studies", scroll: true },
+  { label: "Client & Partners", href: "#clients", scroll: true },
+  { label: "Career", href: "#career", scroll: true },
 ];
 
-export default function Header() {
+export default function Header({ forceWhite = false }: { forceWhite?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -55,7 +56,11 @@ export default function Header() {
   }, [mobileMenuOpen]);
 
   const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string, scroll: boolean) => {
+      if (!scroll) {
+        setMobileMenuOpen(false);
+        return; // allow normal navigation
+      }
       e.preventDefault();
       setMobileMenuOpen(false);
 
@@ -71,43 +76,55 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 animate-slide-from-top ${
-        scrolled ? "bg-white shadow-lg" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${forceWhite ? "animate-slide-from-top--fast" : "animate-slide-from-top"} ${
+        scrolled || forceWhite ? "bg-white shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => handleNavClick(e, "#home")}
+          <Link
+            href="/"
             className="flex-shrink-0"
           >
             <div
               className={`border-2 px-4 py-1.5 font-bold text-lg transition-colors duration-500 ${
-                scrolled
+                scrolled || forceWhite
                   ? "border-brand-red text-brand-red"
                   : "border-white text-white"
               }`}
             >
               Logo
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-sm font-medium transition-colors duration-500 hover:text-brand-red ${
-                  scrolled ? "text-gray-800" : "text-white"
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.scroll ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href, true)}
+                  className={`text-sm font-medium transition-colors duration-500 hover:text-brand-red ${
+                    scrolled || forceWhite ? "text-gray-800" : "text-white"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-sm font-medium transition-colors duration-500 hover:text-brand-red ${
+                    scrolled || forceWhite ? "text-gray-800" : "text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
 
           {/* Contact Us + Hamburger */}
@@ -130,17 +147,17 @@ export default function Header() {
               <span
                 className={`block w-7 h-[3px] rounded-full transition-all duration-300 ${
                   mobileMenuOpen ? "rotate-45 translate-y-[9px] w-7" : ""
-                } ${scrolled ? "bg-brand-red" : "bg-white"}`}
+                } ${scrolled || forceWhite ? "bg-brand-red" : "bg-white"}`}
               />
               <span
                 className={`block w-7 h-[3px] rounded-full transition-all duration-300 ${
                   mobileMenuOpen ? "opacity-0" : ""
-                } ${scrolled ? "bg-brand-red" : "bg-white"}`}
+                } ${scrolled || forceWhite ? "bg-brand-red" : "bg-white"}`}
               />
               <span
                 className={`block w-4 h-[3px] rounded-full transition-all duration-300 ${
                   mobileMenuOpen ? "-rotate-45 -translate-y-[9px] w-7" : ""
-                } ${scrolled ? "bg-brand-red" : "bg-white"}`}
+                } ${scrolled || forceWhite ? "bg-brand-red" : "bg-white"}`}
               />
             </button>
           </div>
@@ -165,16 +182,27 @@ export default function Header() {
           }`}
         >
           <nav className="flex flex-col px-6 py-4 space-y-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-gray-800 hover:text-brand-red hover:bg-red-50 font-medium py-3 px-3 rounded-lg transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.scroll ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href, true)}
+                  className="text-gray-800 hover:text-brand-red hover:bg-red-50 font-medium py-3 px-3 rounded-lg transition-colors duration-200"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-800 hover:text-brand-red hover:bg-red-50 font-medium py-3 px-3 rounded-lg transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
         </div>
       </div>

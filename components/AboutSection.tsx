@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import StatCard from "./StatCard";
 import { Stat } from "@/types";
@@ -90,12 +91,12 @@ export default function AboutSection({ stats }: Props) {
                   contentInView ? "in-view" : ""
                 }`}
               >
-                <a
-                  href="#"
+                <Link
+                  href="/about"
                   className="inline-block border-2 border-brand-red text-brand-red hover:bg-brand-red hover:text-white font-semibold px-8 py-3 rounded-md text-sm transition-all duration-300"
                 >
                   Read More
-                </a>
+                </Link>
               </div>
             </div>
 
