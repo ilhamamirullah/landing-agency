@@ -2,6 +2,7 @@
 
 import { Stat } from "@/types";
 import { defaultStats } from "@/lib/defaultStats";
+import { usePlayOnce } from "@/hooks/usePlayOnce";
 
 // ✅ Props interface
 interface Props {
@@ -9,13 +10,13 @@ interface Props {
 }
 
 export default function HeroSection({ stats }: Props) {
-  // ✅ Use API data if available, otherwise fallback
   const statItems = stats ?? defaultStats;
+  const playIntro = usePlayOnce("home-intro");
 
   return (
     <section className="relative w-full h-screen min-h-[600px] overflow-hidden bg-black">
       {/* Background Image (B&W → Color animation) */}
-      <div className="absolute inset-0 animate-fade-in-color">
+      <div className={`absolute inset-0 ${playIntro ? "animate-fade-in-color" : ""}`}>
         <img
           src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2832&auto=format&fit=crop"
           alt="Team collaboration"
@@ -28,7 +29,7 @@ export default function HeroSection({ stats }: Props) {
 
       {/* Content (slides in from left) */}
       <div className="relative z-10 flex flex-col justify-end h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
-        <div className="animate-slide-from-left max-w-3xl">
+        <div className={`max-w-3xl ${playIntro ? "animate-slide-from-left" : "animate-slide-from-left--fast"}`}>
           {/* Title */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
             Transforming Digital Presence into Measurable Growth

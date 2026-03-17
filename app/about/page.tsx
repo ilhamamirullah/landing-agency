@@ -244,6 +244,7 @@ export default function AboutPage() {
 
   // Scroll reveal refs
   const { ref: heroRef, isInView: heroInView } = useScrollReveal(0.1);
+  const { ref: heroImageRef, isInView: heroImageInView } = useScrollReveal(0.1);
   const { ref: statsRef, isInView: statsInView } = useScrollReveal(0.1);
   const { ref: historyRef, isInView: historyInView } = useScrollReveal(0.1);
   const { ref: valuesRef, isInView: valuesInView } = useScrollReveal(0.1);
@@ -261,7 +262,7 @@ export default function AboutPage() {
           ref={heroRef}
           className={`max-w-4xl mx-auto text-center animate-slide-from-bottom ${heroInView ? "in-view" : ""}`}
         >
-          <p className="text-brand-red font-semibold text-sm mb-5 tracking-widest uppercase">
+          <p className="text-brand-red font-semibold text-sm mb-3 tracking-wide">
             About Us
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-snug">
@@ -275,7 +276,10 @@ export default function AboutPage() {
       {/* ── Hero Team Image ───────────────────────────────────────────────── */}
       <section className="px-4 sm:px-6 lg:px-8 pb-0">
         <div className="max-w-7xl mx-auto">
-          <div className="relative w-full h-56 sm:h-72 md:h-96 lg:h-[480px] overflow-hidden rounded-xl">
+          <div
+            ref={heroImageRef}
+            className={`relative w-full aspect-[1302/635] overflow-hidden rounded-xl animate-slide-from-bottom ${heroImageInView ? "in-view" : ""}`}
+          >
             <Image
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop"
               alt="Our team"

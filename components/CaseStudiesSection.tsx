@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { CaseStudy } from "@/types";
@@ -14,7 +15,7 @@ const defaultCaseStudies: CaseStudy[] = [
     client: "fig studio",
     category: "Awareness",
     description: "",
-    link: "#",
+    link: "/case-studies/mld-content-hunt-fig-studio",
   },
   {
     id: "2",
@@ -23,7 +24,7 @@ const defaultCaseStudies: CaseStudy[] = [
     client: "Late Checkout",
     category: "Branding",
     description: "",
-    link: "#",
+    link: "/case-studies/mld-content-hunt-late-checkout",
   },
   {
     id: "3",
@@ -32,7 +33,7 @@ const defaultCaseStudies: CaseStudy[] = [
     client: "Vertex Digital",
     category: "Performance",
     description: "",
-    link: "#",
+    link: "/case-studies/mld-content-hunt-vertex-digital",
   },
 ];
 
@@ -189,8 +190,8 @@ function CaseCard({ study }: { study: CaseStudy }) {
         <h3 className="text-base font-bold text-gray-900 leading-snug mb-4">
           {study.title}
         </h3>
-        <a
-          href={study.link || "#"}
+        <Link
+          href={study.link || "/case-studies"}
           className="inline-flex items-center gap-2 bg-brand-red hover:bg-red-600 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-all duration-300"
         >
           Read More
@@ -208,7 +209,7 @@ function CaseCard({ study }: { study: CaseStudy }) {
               d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
             />
           </svg>
-        </a>
+        </Link>
       </div>
     </div>
   );

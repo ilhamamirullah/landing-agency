@@ -41,6 +41,11 @@
     overflow: hidden;
   }
 
+  .page-scroll {
+    height: 100vh;
+    overflow-y: auto;
+  }
+
   .snap-container {
     height: 100vh;
     overflow-y: auto;
@@ -106,6 +111,10 @@
   animation: fadeInColor 1.5s ease-out forwards;
 }
 
+.animate-fade-in-color--fast {
+  animation: fadeInColor 0.4s ease-out forwards;
+}
+
 .animate-slide-from-top {
   animation: slideFromTop 0.8s ease-out 1.2s forwards;
   opacity: 0;
@@ -118,6 +127,11 @@
 
 .animate-slide-from-left {
   animation: slideFromLeft 0.8s ease-out 1.6s forwards;
+  opacity: 0;
+}
+
+.animate-slide-from-left--fast {
+  animation: slideFromLeft 0.8s ease-out 0.1s forwards;
   opacity: 0;
 }
 
@@ -297,7 +311,7 @@
 }
 
 .footer-reveal.in-view {
-  animation: footerSlideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: footerSlideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 @keyframes footerSlideUp {

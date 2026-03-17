@@ -2,11 +2,14 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { usePlayOnce } from "@/hooks/usePlayOnce";
 
 const navLinks = [
-  { label: "About", href: "#about", scroll: true },
+  { label: "Home", href: "/", scroll: false },
+  { label: "About", href: "/about", scroll: false },
   { label: "Services", href: "/services", scroll: false },
-  { label: "Case studies", href: "#case-studies", scroll: true },
+  { label: "Case studies", href: "/case-studies", scroll: false },
   { label: "Client & Partners", href: "#clients", scroll: true },
   { label: "Career", href: "#career", scroll: true },
 ];
@@ -14,6 +17,14 @@ const navLinks = [
 export default function Header({ forceWhite = false }: { forceWhite?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const playIntro = usePlayOnce("home-intro");
+
+  const isActive = (href: string, scroll: boolean) => {
+    if (scroll) return false;
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(href + "/");
+  };
 
   useEffect(() => {
     const checkScroll = () => {
@@ -76,7 +87,7 @@ export default function Header({ forceWhite = false }: { forceWhite?: boolean })
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${forceWhite ? "animate-slide-from-top--fast" : "animate-slide-from-top"} ${scrolled || forceWhite ? "bg-white shadow-lg" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${forceWhite ? "animate-slide-from-top--fast" : playIntro ? "animate-slide-from-top" : "animate-slide-from-top--fast"} ${scrolled || forceWhite ? "bg-white shadow-lg" : "bg-transparent"
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,29 +109,39 @@ export default function Header({ forceWhite = false }: { forceWhite?: boolean })
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) =>
-              link.scroll ? (
+            {navLinks.map((link) => {
+              const active = isActive(link.href, link.scroll);
+              const baseClass = `text-sm transition-colors duration-500 hover:text-brand-red flex items-center gap-1.5 ${
+                active
+                  ? `font-bold ${scrolled || forceWhite ? "text-gray-900" : "text-white"}`
+                  : `font-medium ${scrolled || forceWhite ? "text-gray-800" : "text-white"}`
+              }`;
+              const content = (
+                <>
+                  {active && <span className="w-1.5 h-1.5 rounded-full bg-brand-red flex-shrink-0" />}
+                  {link.label}
+                </>
+              );
+              return link.scroll ? (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href, true)}
-                  className={`text-sm font-medium transition-colors duration-500 hover:text-brand-red ${scrolled || forceWhite ? "text-gray-800" : "text-white"
-                    }`}
+                  className={baseClass}
                 >
-                  {link.label}
+                  {content}
                 </a>
               ) : (
                 <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`text-sm font-medium transition-colors duration-500 hover:text-brand-red ${scrolled || forceWhite ? "text-gray-800" : "text-white"
-                    }`}
+                  className={baseClass}
                 >
-                  {link.label}
+                  {content}
                 </Link>
-              )
-            )}
+              );
+            })}
           </nav>
 
           {/* Contact Us + Hamburger */}
@@ -172,27 +193,37 @@ export default function Header({ forceWhite = false }: { forceWhite?: boolean })
             }`}
         >
           <nav className="flex flex-col px-6 py-4 space-y-1">
-            {navLinks.map((link) =>
-              link.scroll ? (
+            {navLinks.map((link) => {
+              const active = isActive(link.href, link.scroll);
+              const baseClass = `hover:text-brand-red hover:bg-red-50 py-3 px-3 rounded-lg transition-colors duration-200 flex items-center gap-2 ${
+                active ? "text-gray-900 font-bold" : "text-gray-800 font-medium"
+              }`;
+              const content = (
+                <>
+                  {active && <span className="w-1.5 h-1.5 rounded-full bg-brand-red flex-shrink-0" />}
+                  {link.label}
+                </>
+              );
+              return link.scroll ? (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href, true)}
-                  className="text-gray-800 hover:text-brand-red hover:bg-red-50 font-medium py-3 px-3 rounded-lg transition-colors duration-200"
+                  className={baseClass}
                 >
-                  {link.label}
+                  {content}
                 </a>
               ) : (
                 <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-gray-800 hover:text-brand-red hover:bg-red-50 font-medium py-3 px-3 rounded-lg transition-colors duration-200"
+                  className={baseClass}
                 >
-                  {link.label}
+                  {content}
                 </Link>
-              )
-            )}
+              );
+            })}
           </nav>
         </div>
       </div>
